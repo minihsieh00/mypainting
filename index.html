@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>你的名字｜繪畫作品集</title>
+<meta name="description" content="你的名字的繪畫作品集">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===== 顏色設定：想換風格改這裡就好 ===== */
+  :root {
+    --bg: #f6f3ee;
+    --text: #2b2724;
+    --muted: #857c73;
+    --line: #e2dcd3;
+    --accent: #a0522d;
+    --card: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans TC", sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  a { color: inherit; }
+
+  /* ===== 頂部導覽 ===== */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    max-width: 1200px; margin: 0 auto;
+    padding: 16px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo {
+    font-family: "Noto Serif TC", serif;
+    font-size: 1.25rem; font-weight: 600;
+    text-decoration: none; letter-spacing: .08em;
+  }
+  .nav ul { list-style: none; display: flex; gap: 28px; }
+  .nav ul a {
+    text-decoration: none; font-size: .95rem; color: var(--muted);
+    transition: color .2s;
+  }
+  .nav ul a:hover { color: var(--accent); }
+
+  /* ===== 開頭介紹 ===== */
+  .hero {
+    max-width: 1200px; margin: 0 auto;
+    padding: 96px 24px 56px;
+  }
+  .hero h1 {
+    font-family: "Noto Serif TC", serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 600; line-height: 1.3;
+    letter-spacing: .04em;
+  }
+  .hero p { margin-top: 16px; color: var(--muted); max-width: 520px; }
+
+  /* ===== 分類按鈕 ===== */
+  .filters {
+    max-width: 1200px; margin: 0 auto;
+    padding: 0 24px 32px;
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .filters button {
+    font: inherit; font-size: .9rem;
+    background: none; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 18px; cursor: pointer;
+    transition: all .2s;
+  }
+  .filters button:hover { border-color: var(--accent); color: var(--accent); }
+  .filters button.active { background: var(--text); border-color: var(--text); color: var(--bg); }
+
+  /* ===== 作品牆（瀑布流） ===== */
+  .gallery {
+    max-width: 1200px; margin: 0 auto;
+    padding: 0 24px 96px;
+    columns: 3 300px; column-gap: 24px;
+  }
+  .item {
+    break-inside: avoid; margin-bottom: 24px;
+    cursor: zoom-in;
+    animation: fadeIn .5s ease both;
+  }
+  .item img {
+    width: 100%; display: block;
+    background: var(--line);
+    transition: transform .4s ease, box-shadow .4s ease;
+    -webkit-user-drag: none; user-select: none;
+  }
+  .item:hover img {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  }
+  .item .caption { padding-top: 10px; }
+  .item .title { font-family: "Noto Serif TC", serif; font-size: 1rem; }
+  .item .meta { font-size: .82rem; color: var(--muted); }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+  /* ===== 放大檢視 ===== */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(20,18,16,.94);
+    display: none; align-items: center; justify-content: center;
+    flex-direction: column; padding: 24px;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%; max-height: 78vh; object-fit: contain;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    user-select: none; -webkit-user-drag: none;
+  }
+  .lb-info { color: #eee; text-align: center; margin-top: 18px; }
+  .lb-info .title { font-family: "Noto Serif TC", serif; font-size: 1.15rem; }
+  .lb-info .meta { color: #aaa; font-size: .88rem; }
+  .lb-info .desc { color: #ccc; font-size: .9rem; margin-top: 6px; max-width: 560px; }
+  .lb-btn {
+    position: absolute; background: none; border: none;
+    color: #fff; font-size: 2rem; cursor: pointer;
+    width: 56px; height: 56px; opacity: .7; transition: opacity .2s;
+  }
+  .lb-btn:hover { opacity: 1; }
+  .lb-close { top: 12px; right: 12px; }
+  .lb-prev { left: 8px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 8px; top: 50%; transform: translateY(-50%); }
+
+  /* ===== 關於我 / 聯絡 ===== */
+  section.block {
+    border-top: 1px solid var(--line);
+  }
+  .block-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 80px 24px;
+    display: grid; grid-template-columns: 1fr 2fr; gap: 48px;
+  }
+  .block h2 {
+    font-family: "Noto Serif TC", serif;
+    font-size: 1.6rem; font-weight: 600; letter-spacing: .06em;
+  }
+  .block p + p { margin-top: 14px; }
+  .about-photo {
+    width: 100%; max-width: 260px; aspect-ratio: 1;
+    object-fit: cover; border-radius: 4px; margin-top: 24px;
+  }
+  .contact-list { list-style: none; }
+  .contact-list li { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .contact-list span { display: inline-block; width: 110px; color: var(--muted); font-size: .9rem; }
+  .contact-list a { text-decoration: none; border-bottom: 1px solid var(--accent); }
+  .contact-list a:hover { color: var(--accent); }
+
+  footer {
+    text-align: center; padding: 32px 24px;
+    font-size: .82rem; color: var(--muted);
+    border-top: 1px solid var(--line);
+  }
+
+  /* ===== 手機版 ===== */
+  @media (max-width: 700px) {
+    .nav ul { gap: 18px; }
+    .hero { padding: 56px 16px 36px; }
+    .filters, .gallery { padding-left: 16px; padding-right: 16px; }
+    .block-inner { grid-template-columns: 1fr; gap: 24px; padding: 56px 16px; }
+    .lb-prev, .lb-next { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#" class="logo">你的名字</a>
+    <ul>
+      <li><a href="#works">作品</a></li>
+      <li><a href="#about">關於</a></li>
+      <li><a href="#contact">聯絡</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>用顏色記下<br>那些安靜的時刻</h1>
+  <p>這裡寫一兩句介紹自己的話，例如你畫什麼、在哪裡創作、喜歡什麼題材。</p>
+</div>
+
+<div class="filters" id="works"></div>
+<main class="gallery" id="gallery"></main>
+
+<section class="block" id="about">
+  <div class="block-inner">
+    <div>
+      <h2>關於我</h2>
+      <!-- 想放自己的照片：把照片放進 images 資料夾，取消下一行的註解 -->
+      <!-- <img class="about-photo" src="images/me.jpg" alt="我的照片"> -->
+    </div>
+    <div>
+      <p>在這裡寫你的介紹。可以聊聊你從什麼時候開始畫畫、喜歡用的媒材、創作的靈感來源。</p>
+      <p>也可以列出展覽經歷、得獎紀錄，或是目前正在進行的計畫。</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="contact">
+  <div class="block-inner">
+    <div><h2>聯絡</h2></div>
+    <div>
+      <p>歡迎委託、合作或聊聊作品。</p>
+      <ul class="contact-list" style="margin-top:20px">
+        <li><span>Email</span><a href="mailto:you@example.com">you@example.com</a></li>
+        <li><span>Instagram</span><a href="https://instagram.com/yourname" target="_blank" rel="noopener">@yourname</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> 你的名字．所有作品版權所有，未經同意請勿轉載
+</footer>
+
+<!-- 放大檢視 -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="關閉">✕</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="上一張">‹</button>
+  <button class="lb-btn lb-next" id="lbNext" aria-label="下一張">›</button>
+  <img id="lbImg" alt="">
+  <div class="lb-info">
+    <div class="title" id="lbTitle"></div>
+    <div class="meta" id="lbMeta"></div>
+    <div class="desc" id="lbDesc"></div>
+  </div>
+</div>
+
+<script>
+/* =====================================================
+   作品清單：新增或修改作品只要改這裡！
+   - src：圖片路徑。把圖片放進 images 資料夾，寫成 "images/檔名.jpg"
+   - category：分類名稱，會自動變成上方的分類按鈕
+   - 目前用的是示範圖，換成你的作品即可
+   ===================================================== */
+const works = [
+  { src: "https://picsum.photos/id/1015/800/1000", title: "河谷的早晨", year: 2026, medium: "水彩", size: "30 × 40 cm", category: "水彩", desc: "這裡可以寫一段關於這幅畫的故事。" },
+  { src: "https://picsum.photos/id/1043/800/600",  title: "海邊散步",   year: 2026, medium: "油畫", size: "50 × 38 cm", category: "油畫", desc: "" },
+  { src: "https://picsum.photos/id/1080/800/1100", title: "草莓",       year: 2025, medium: "數位繪圖", size: "", category: "數位", desc: "" },
+  { src: "https://picsum.photos/id/1039/800/800",  title: "瀑布",       year: 2025, medium: "水彩", size: "25 × 25 cm", category: "水彩", desc: "" },
+  { src: "https://picsum.photos/id/1056/800/1000", title: "小鎮午後",   year: 2025, medium: "油畫", size: "45 × 60 cm", category: "油畫", desc: "" },
+  { src: "https://picsum.photos/id/1069/800/600",  title: "水母",       year: 2024, medium: "數位繪圖", size: "", category: "數位", desc: "" },
+  { src: "https://picsum.photos/id/1035/800/1000", title: "山中小溪",   year: 2024, medium: "水彩", size: "30 × 40 cm", category: "水彩", desc: "" },
+  { src: "https://picsum.photos/id/1067/800/700",  title: "城市夜色",   year: 2024, medium: "油畫", size: "60 × 50 cm", category: "油畫", desc: "" },
+  { src: "https://picsum.photos/id/1025/800/1000", title: "小狗",       year: 2024, medium: "數位繪圖", size: "", category: "數位", desc: "" },
+];
+
+/* ===== 以下是程式，不需要修改 ===== */
+const gallery = document.getElementById("gallery");
+const filters = document.getElementById("works");
+let current = [...works];
+let index = 0;
+
+function meta(w) { return [w.year, w.medium, w.size].filter(Boolean).join("　·　"); }
+
+function render(list) {
+  gallery.innerHTML = "";
+  list.forEach((w, i) => {
+    const el = document.createElement("figure");
+    el.className = "item";
+    el.style.animationDelay = (i * 0.05) + "s";
+    el.innerHTML = `
+      <img src="${w.src}" alt="${w.title}" loading="lazy">
+      <figcaption class="caption">
+        <div class="title">${w.title}</div>
+        <div class="meta">${meta(w)}</div>
+      </figcaption>`;
+    el.addEventListener("click", () => openLb(i));
+    gallery.appendChild(el);
+  });
+}
+
+function buildFilters() {
+  const cats = ["全部", ...new Set(works.map(w => w.category).filter(Boolean))];
+  cats.forEach((c, i) => {
+    const b = document.createElement("button");
+    b.textContent = c;
+    if (i === 0) b.classList.add("active");
+    b.addEventListener("click", () => {
+      filters.querySelectorAll("button").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      current = c === "全部" ? [...works] : works.filter(w => w.category === c);
+      render(current);
+    });
+    filters.appendChild(b);
+  });
+}
+
+const lb = document.getElementById("lightbox");
+const lbImg = document.getElementById("lbImg");
+function show() {
+  const w = current[index];
+  lbImg.src = w.src; lbImg.alt = w.title;
+  document.getElementById("lbTitle").textContent = w.title;
+  document.getElementById("lbMeta").textContent = meta(w);
+  document.getElementById("lbDesc").textContent = w.desc || "";
+}
+function openLb(i) { index = i; show(); lb.classList.add("open"); document.body.style.overflow = "hidden"; }
+function closeLb() { lb.classList.remove("open"); document.body.style.overflow = ""; }
+function step(d) { index = (index + d + current.length) % current.length; show(); }
+
+document.getElementById("lbClose").onclick = closeLb;
+document.getElementById("lbPrev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("lbNext").onclick = e => { e.stopPropagation(); step(1); };
+lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
+document.addEventListener("keydown", e => {
+  if (!lb.classList.contains("open")) return;
+  if (e.key === "Escape") closeLb();
+  if (e.key === "ArrowLeft") step(-1);
+  if (e.key === "ArrowRight") step(1);
+});
+// 手機左右滑動切換
+let sx = null;
+lb.addEventListener("touchstart", e => sx = e.touches[0].clientX, { passive: true });
+lb.addEventListener("touchend", e => {
+  if (sx === null) return;
+  const dx = e.changedTouches[0].clientX - sx;
+  if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+  sx = null;
+});
+// 簡單防止右鍵存圖（只能擋一般使用者）
+document.addEventListener("contextmenu", e => { if (e.target.tagName === "IMG") e.preventDefault(); });
+
+document.getElementById("year").textContent = new Date().getFullYear();
+buildFilters();
+render(current);
+</script>
+</body>
+</html>
