@@ -4,166 +4,182 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pn H｜繪畫作品集</title>
-<meta name="description" content="Pn H的繪畫作品集">
+<meta name="description" content="Pn H 的繪畫作品集">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+TC:wght@300;400;500&family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  /* ===== 顏色設定：跟作品頁一致，想換風格兩頁都改這裡 ===== */
+  /* ===== 顏色與字體：想換風格改這裡（作品頁也要一起改） ===== */
   :root {
-    --bg: #f6f3ee;
-    --text: #2b2724;
-    --muted: #857c73;
-    --line: #e2dcd3;
-    --accent: #a0522d;
+    --bg: #ffffff;
+    --text: #1c1c1c;
+    --muted: #8c8c8c;
+    --line: #ebebeb;
+    --accent: #b8612e;
+    --serif: "Cormorant Garamond", "Noto Serif TC", serif;
+    --serif-tc: "Noto Serif TC", serif;
+    --sans: "Noto Sans TC", sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Noto Sans TC", sans-serif;
-    font-weight: 300;
-    line-height: 1.8;
+    background: var(--bg); color: var(--text);
+    font-family: var(--sans); font-weight: 300;
+    line-height: 1.9; letter-spacing: .02em;
+    -webkit-font-smoothing: antialiased;
   }
-  a { color: inherit; }
-  img { -webkit-user-drag: none; user-select: none; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; -webkit-user-drag: none; user-select: none; mix-blend-mode: multiply; }
 
-  /* ===== 頂部導覽 ===== */
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 56px; }
+
+  /* ===== 導覽列 ===== */
   header {
     position: sticky; top: 0; z-index: 10;
-    background: color-mix(in srgb, var(--bg) 92%, transparent);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(6px);
   }
   .nav {
-    max-width: 1200px; margin: 0 auto;
-    padding: 16px 24px;
+    height: 88px;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .logo {
-    font-family: "Noto Serif TC", serif;
-    font-size: 1.25rem; font-weight: 600;
-    text-decoration: none; letter-spacing: .08em;
-  }
-  .nav ul { list-style: none; display: flex; gap: 28px; }
+  .logo { font-family: var(--serif); font-size: 1.6rem; font-weight: 500; letter-spacing: .12em; }
+  .nav ul { list-style: none; display: flex; gap: 40px; }
   .nav ul a {
-    text-decoration: none; font-size: .95rem; color: var(--muted);
-    transition: color .2s;
+    font-size: .82rem; letter-spacing: .25em; color: var(--muted);
+    transition: color .3s;
   }
-  .nav ul a:hover { color: var(--accent); }
+  .nav ul a:hover { color: var(--text); }
 
-  /* ===== 首屏大圖 ===== */
+  /* ===== 首屏 ===== */
   .hero {
-    max-width: 1200px; margin: 0 auto;
-    padding: 72px 24px 96px;
-    display: grid; grid-template-columns: 1fr 1.15fr;
-    gap: 64px; align-items: center;
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: 80px; align-items: end;
+    padding-top: 64px; padding-bottom: 140px;
   }
-  .hero .eyebrow {
-    font-size: .85rem; letter-spacing: .3em; color: var(--accent);
-  }
+  .hero-text { display: flex; gap: 48px; align-items: flex-start; padding-bottom: 40px; }
   .hero h1 {
-    font-family: "Noto Serif TC", serif;
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    font-weight: 600; line-height: 1.3;
-    letter-spacing: .04em; margin-top: 12px;
+    writing-mode: vertical-rl;
+    font-family: var(--serif-tc); font-weight: 400;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    letter-spacing: .32em; line-height: 1.9;
   }
-  .hero p { margin-top: 20px; color: var(--muted); max-width: 420px; }
-  .buttons { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
-  .btn {
-    display: inline-block; text-decoration: none;
-    padding: 12px 28px; border-radius: 999px;
-    font-size: .95rem; transition: all .25s;
+  .hero-side { padding-top: 8px; }
+  .eyebrow {
+    font-family: var(--serif); font-style: italic;
+    font-size: 1.05rem; color: var(--muted); letter-spacing: .06em;
   }
-  .btn-primary { background: var(--text); color: var(--bg); }
-  .btn-primary:hover { background: var(--accent); }
-  .btn-ghost { border: 1px solid var(--text); }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-side p { margin-top: 28px; font-size: .92rem; color: #555; max-width: 15em; }
+  .text-link {
+    display: inline-flex; align-items: center; gap: 14px;
+    margin-top: 44px; font-size: .82rem; letter-spacing: .25em;
+  }
+  .text-link::after {
+    content: ""; width: 48px; height: 1px; background: currentColor;
+    transition: width .4s ease;
+  }
+  .text-link:hover { color: var(--accent); }
+  .text-link:hover::after { width: 80px; }
 
-  .hero-art { position: relative; }
-  .hero-art img {
-    width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block;
-    background: var(--line);
-    box-shadow: 0 30px 60px rgba(0,0,0,.12);
-  }
-  .hero-art::before {
-    content: ""; position: absolute; inset: 24px -24px -24px 24px;
-    border: 1px solid var(--accent); z-index: -1;
-  }
-  .hero-art figcaption {
-    font-size: .82rem; color: var(--muted); margin-top: 14px;
-  }
+  .hero-art img { width: 100%; aspect-ratio: 1; object-fit: contain; }
 
-  /* ===== 區塊共用 ===== */
-  section.block { border-top: 1px solid var(--line); }
-  .inner { max-width: 1200px; margin: 0 auto; padding: 88px 24px; }
-  .section-head {
+  /* 展覽標籤式的作品說明 */
+  .label { margin-top: 18px; display: flex; gap: 18px; align-items: baseline; }
+  .label .no { font-family: var(--serif); font-size: .95rem; color: var(--muted); }
+  .label .t { font-family: var(--serif-tc); font-size: .98rem; }
+  .label .m { font-size: .78rem; color: var(--muted); letter-spacing: .12em; }
+  .hero-art .label { justify-content: flex-end; }
+
+  /* ===== 區塊標題 ===== */
+  .sec-head {
     display: flex; justify-content: space-between; align-items: baseline;
-    gap: 16px; margin-bottom: 40px;
+    border-top: 1px solid var(--line); padding-top: 28px; margin-bottom: 72px;
   }
-  h2 {
-    font-family: "Noto Serif TC", serif;
-    font-size: 1.7rem; font-weight: 600; letter-spacing: .06em;
-  }
-  .more { text-decoration: none; color: var(--muted); font-size: .95rem; white-space: nowrap; }
-  .more:hover { color: var(--accent); }
+  .sec-head h2 { font-family: var(--serif-tc); font-weight: 400; font-size: 1.05rem; letter-spacing: .3em; }
+  .sec-head .en { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 1.05rem; }
 
-  /* ===== 精選作品 ===== */
-  .featured {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
-  }
-  .featured a { text-decoration: none; display: block; }
-  .featured .frame { overflow: hidden; background: var(--line); }
+  /* ===== 精選作品：錯落排列 ===== */
+  .selected { padding-bottom: 160px; }
+  .featured { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; }
+  .featured a:nth-child(2) { margin-top: 120px; }
+  .featured a:nth-child(3) { margin-top: 48px; }
+  .featured .frame { overflow: hidden; }
   .featured img {
-    width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block;
-    transition: transform .6s ease;
+    width: 100%; aspect-ratio: 1; object-fit: contain;
+    transition: transform 1s cubic-bezier(.2,.7,.2,1);
   }
-  .featured a:hover img { transform: scale(1.04); }
-  .featured .title { font-family: "Noto Serif TC", serif; margin-top: 12px; }
-  .featured .meta { font-size: .82rem; color: var(--muted); }
+  .featured a:hover img { transform: scale(1.035); }
+  .featured a:hover .t { color: var(--accent); }
+  .featured .t { transition: color .3s; }
+  .more-row { text-align: center; margin-top: 96px; }
 
-  /* ===== 關於 / 聯絡 ===== */
-  .two-col { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; }
-  .two-col p + p { margin-top: 14px; }
-  .about-photo {
-    width: 100%; max-width: 260px; aspect-ratio: 1;
-    object-fit: cover; border-radius: 4px; margin-top: 24px;
+  /* ===== 關於 ===== */
+  .about { padding-bottom: 160px; }
+  .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; }
+  .about-grid .big {
+    font-family: var(--serif-tc); font-size: clamp(1.25rem, 2vw, 1.6rem);
+    font-weight: 300; line-height: 2; letter-spacing: .08em;
   }
-  .contact-list { list-style: none; margin-top: 20px; }
-  .contact-list li { padding: 12px 0; border-bottom: 1px solid var(--line); }
-  .contact-list span { display: inline-block; width: 110px; color: var(--muted); font-size: .9rem; }
-  .contact-list a { text-decoration: none; border-bottom: 1px solid var(--accent); }
-  .contact-list a:hover { color: var(--accent); }
+  .about-grid p + p { margin-top: 8px; }
+  .about-photo { width: 100%; max-width: 240px; aspect-ratio: 3/4; object-fit: cover; mix-blend-mode: normal; }
+
+  /* ===== 聯絡 ===== */
+  .contact { padding-bottom: 140px; }
+  .contact .lead { color: #555; font-size: .95rem; }
+  .mail {
+    display: inline-block; margin-top: 20px;
+    font-family: var(--serif); font-size: clamp(1.6rem, 4vw, 3rem);
+    letter-spacing: .02em; line-height: 1.3;
+    border-bottom: 1px solid var(--line); transition: color .3s, border-color .3s;
+    word-break: break-all;
+  }
+  .mail:hover { color: var(--accent); border-color: var(--accent); }
+  .social { margin-top: 36px; display: flex; gap: 28px; font-size: .82rem; letter-spacing: .2em; color: var(--muted); }
+  .social a:hover { color: var(--text); }
 
   footer {
-    text-align: center; padding: 32px 24px;
-    font-size: .82rem; color: var(--muted);
     border-top: 1px solid var(--line);
+    padding: 32px 0 40px; font-size: .75rem; color: var(--muted); letter-spacing: .1em;
   }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
-  /* ===== 進場動畫 ===== */
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+  /* ===== 淡入動畫 ===== */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1); }
   .reveal.show { opacity: 1; transform: none; }
 
-  /* ===== 手機版 ===== */
-  @media (max-width: 800px) {
-    .hero { grid-template-columns: 1fr; gap: 48px; padding: 48px 16px 72px; }
-    .hero-art { margin-right: 24px; }
-    .inner { padding: 64px 16px; }
-    .featured { grid-template-columns: 1fr 1fr; gap: 16px; }
-    .featured a:nth-child(3) { display: none; }
-    .two-col { grid-template-columns: 1fr; gap: 20px; }
-    .nav { padding: 14px 16px; }
-    .nav ul { gap: 18px; }
+  /* ===== 平板 ===== */
+  @media (max-width: 960px) {
+    .wrap { padding-left: 32px; padding-right: 32px; }
+    .hero { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-bottom: 100px; }
+    .hero > * { min-width: 0; }
+    .hero-text { order: 2; padding-bottom: 0; }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+  /* ===== 手機 ===== */
+  @media (max-width: 640px) {
+    .wrap { padding-left: 16px; padding-right: 16px; }
+    .nav { height: 68px; }
+    .logo { font-size: 1.35rem; }
+    .nav ul { gap: 20px; }
+    .nav ul a { letter-spacing: .15em; }
+    .hero { padding-top: 24px; gap: 40px; }
+    .hero-text { gap: 28px; }
+    .hero h1 { font-size: 1.6rem; }
+    .featured { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .featured a:nth-child(2) { margin-top: 56px; }
+    .featured a:nth-child(3) { margin-top: 0; grid-column: 1 / -1; width: 70%; justify-self: center; }
+    .label { gap: 10px; flex-wrap: wrap; }
+    .sec-head { margin-bottom: 44px; }
+    .selected, .about { padding-bottom: 100px; }
+    .contact { padding-bottom: 96px; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <nav class="nav">
+  <nav class="nav wrap">
     <a href="index.html" class="logo">Pn H</a>
     <ul>
       <li><a href="works.html">作品</a></li>
@@ -173,58 +189,60 @@
   </nav>
 </header>
 
-<!-- ===== 首屏：換成你最有代表性的一幅畫 ===== -->
-<section class="hero">
-  <div class="reveal">
-    <div class="eyebrow">PAINTINGS · 繪畫作品集</div>
+<!-- ===== 首屏：代表作品 ===== -->
+<section class="hero wrap">
+  <div class="hero-text reveal">
     <h1>用顏色記下<br>那些安靜的時刻</h1>
-    <p>一名在台北創作的畫家，喜歡用油粉彩和壓克力描繪日常裡的光線與風景。</p>
-    <div class="buttons">
-      <a href="works.html" class="btn btn-primary">看所有作品 →</a>
-      <a href="#contact" class="btn btn-ghost">聯絡我</a>
+    <div class="hero-side">
+      <div class="eyebrow">Paintings by Pn H</div>
+      <p>一名在台北創作的畫家，喜歡用油粉彩和壓克力描繪日常裡的光線與風景。</p>
+      <a href="works.html" class="text-link">所有作品</a>
     </div>
   </div>
   <figure class="hero-art reveal">
     <img src="01.jpg" alt="海邊走走">
-    <figcaption>《海邊走走》，壓克力，2026</figcaption>
+    <figcaption class="label">
+      <span class="t">海邊走走</span>
+      <span class="m">壓克力．2026</span>
+    </figcaption>
   </figure>
 </section>
 
 <!-- ===== 精選作品：挑三幅放這裡 ===== -->
-<section class="block">
-  <div class="inner">
-    <div class="section-head reveal">
-      <h2>精選作品</h2>
-      <a href="works.html" class="more">全部作品 →</a>
-    </div>
-    <div class="featured">
-      <a href="works.html" class="reveal">
-        <div class="frame"><img src="02.jpg" alt="海邊散步" loading="lazy"></div>
-        <div class="title">散步</div>
-        <div class="meta">油粉彩．2026</div>
-      </a>
-      <a href="works.html" class="reveal">
-        <div class="frame"><img src="03.jpg" alt="飛鳥" loading="lazy"></div>
-        <div class="title">飛鳥</div>
-        <div class="meta">油粉彩．2025</div>
-      </a>
-      <a href="works.html" class="reveal">
-        <div class="frame"><img src="04.jpg" alt="夕陽午後" loading="lazy"></div>
-        <div class="title">夕陽午後</div>
-        <div class="meta">油粉彩．2025</div>
-      </a>
-    </div>
+<section class="selected wrap">
+  <div class="sec-head reveal">
+    <h2>精選作品</h2>
+    <span class="en">Selected Works</span>
   </div>
+  <div class="featured">
+    <a href="works.html" class="reveal">
+      <div class="frame"><img src="02.jpg" alt="散步" loading="lazy"></div>
+      <div class="label"><span class="no">01</span><span class="t">散步</span><span class="m">油粉彩．2026</span></div>
+    </a>
+    <a href="works.html" class="reveal">
+      <div class="frame"><img src="03.jpg" alt="飛鳥" loading="lazy"></div>
+      <div class="label"><span class="no">02</span><span class="t">飛鳥</span><span class="m">油粉彩．2025</span></div>
+    </a>
+    <a href="works.html" class="reveal">
+      <div class="frame"><img src="04.jpg" alt="夕陽午後" loading="lazy"></div>
+      <div class="label"><span class="no">03</span><span class="t">夕陽午後</span><span class="m">油粉彩．2025</span></div>
+    </a>
+  </div>
+  <div class="more-row reveal"><a href="works.html" class="text-link">看全部作品</a></div>
 </section>
 
 <!-- ===== 關於我 ===== -->
-<section class="block" id="about">
-  <div class="inner two-col">
+<section class="about wrap" id="about">
+  <div class="sec-head reveal">
+    <h2>關於</h2>
+    <span class="en">About</span>
+  </div>
+  <div class="about-grid">
     <div class="reveal">
-      <h2>關於我</h2>
-      <!-- <img class="about-photo" src="me.jpg" alt="我的照片"> -->
+      <!-- 想放自己的照片：把照片上傳後，取消下一行的註解 -->
+      <!-- <img class="about-photo" src="me.jpg" alt="Pn H"> -->
     </div>
-    <div class="reveal">
+    <div class="big reveal">
       <p>輔仁大學應用美術系畢。</p>
       <p>自由繪畫創作。</p>
     </div>
@@ -232,30 +250,34 @@
 </section>
 
 <!-- ===== 聯絡 ===== -->
-<section class="block" id="contact">
-  <div class="inner two-col">
-    <div class="reveal"><h2>聯絡</h2></div>
-    <div class="reveal">
-      <p>歡迎委託、合作或聊聊作品。</p>
-      <ul class="contact-list">
-        <li><span>Email</span><a href="mailto:minihsieh00@gmail.com">minihsieh00@gmail.com</a></li>
-        <li><span>Instagram</span><a href="https://instagram.com/minihsieh" target="_blank" rel="noopener">@minihsieh</a></li>
-      </ul>
+<section class="contact wrap" id="contact">
+  <div class="sec-head reveal">
+    <h2>聯絡</h2>
+    <span class="en">Contact</span>
+  </div>
+  <div class="reveal">
+    <p class="lead">歡迎委託、合作或聊聊作品。</p>
+    <a class="mail" href="mailto:minihsieh00@gmail.com">minihsieh00@gmail.com</a>
+    <div class="social">
+      <a href="https://instagram.com/minihsieh" target="_blank" rel="noopener">INSTAGRAM　@minihsieh</a>
     </div>
   </div>
 </section>
 
 <footer>
-  © <span id="year"></span> Pn H．所有作品版權所有，未經同意請勿轉載
+  <div class="wrap">
+    <span>© <span id="year"></span> Pn H</span>
+    <span>所有作品版權所有，未經同意請勿轉載</span>
+  </div>
 </footer>
 
 <script>
   // 捲動時淡入
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("show"); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
   document.querySelectorAll(".reveal").forEach((el, i) => {
-    el.style.transitionDelay = (i % 3) * 0.1 + "s";
+    el.style.transitionDelay = (i % 3) * 0.12 + "s";
     io.observe(el);
   });
   // 簡單防止右鍵存圖
