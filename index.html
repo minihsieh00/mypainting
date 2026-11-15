@@ -99,11 +99,9 @@
   .sec-head h2 { font-family: var(--serif-tc); font-weight: 400; font-size: 1.05rem; letter-spacing: .3em; }
   .sec-head .en { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 1.05rem; }
 
-  /* ===== 精選作品：錯落排列 ===== */
+  /* ===== 精選作品：三幅並排對齊 ===== */
   .selected { padding-bottom: 160px; }
-  .featured { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; }
-  .featured a:nth-child(2) { margin-top: 120px; }
-  .featured a:nth-child(3) { margin-top: 48px; }
+  .featured { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; align-items: start; }
   .featured .frame { overflow: hidden; }
   .featured img {
     width: 100%; aspect-ratio: 1; object-fit: contain;
@@ -166,9 +164,7 @@
     .hero { padding-top: 24px; gap: 40px; }
     .hero-text { gap: 28px; }
     .hero h1 { font-size: 1.6rem; }
-    .featured { grid-template-columns: 1fr 1fr; gap: 20px; }
-    .featured a:nth-child(2) { margin-top: 56px; }
-    .featured a:nth-child(3) { margin-top: 0; grid-column: 1 / -1; width: 70%; justify-self: center; }
+    .featured { grid-template-columns: 1fr; gap: 48px; }
     .label { gap: 10px; flex-wrap: wrap; }
     .sec-head { margin-bottom: 44px; }
     .selected, .about { padding-bottom: 100px; }
